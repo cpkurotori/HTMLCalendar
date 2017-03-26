@@ -90,33 +90,35 @@
 	<script>
 	functionDate = new Date();
 	function createCalendar(pDate){
-		for (i=1;i<=6;i++){document.getElementById('w'+String(i)).style.visibility='visible';}
+		var today = new Date();
+		for (i=1;i<=6;i++){
+			document.getElementById('w'+String(i)).style.visibility='visible';
+		}
 		var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 		var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 		var daysShort = ["sun","mon","tue","wed","thu","fri","sat"];
 		var daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
-		var t = pDate;
-		var f = new Date(t.getFullYear(),t.getMonth(),1);
-		if (t.getYear()%4==0 && (t.getYear()%100!=0 || t.getYear()%400==0)){
+		var f = new Date(pDate.getFullYear(),pDate.getMonth(),1);
+		if (pDate.getYear()%4==0 && (pDate.getYear()%100!=0 || pDate.getYear()%400==0)){
 			daysInMonth[1]=29;
 		}
 		var d = 1;
-		document.getElementById("month").innerHTML = months[t.getMonth()]+" "+String(t.getFullYear())
+		document.getElementById("month").innerHTML = months[pDate.getMonth()]+" "+String(pDate.getFullYear())
 		for (i = 1; i <=6; i++){
 			if (i==1){
 				for (j=f.getDay();j<=6;j++){
-					document.getElementById("w"+String(i)+daysShort[j]).innerHTML = "<div class=\"day\">"+String(d)+"</div>";
+					document.getElementById("w"+String(i)+daysShort[j]).innerHTML = "<div id=\""+String(pDate.getFullYear())+String(pDate.getMonth())+String(d)+"\"class=\"day\">"+String(d)+"</div>";
 					d++;
-					if (d>daysInMonth[t.getMonth()]){break;}
+					if (d>daysInMonth[pDate.getMonth()]){break;}
 				}
 			}
 			else{
 				for (j=0;j<=6;j++){
-					document.getElementById("w"+String(i)+daysShort[j]).innerHTML = d;
+					document.getElementById("w"+String(i)+daysShort[j]).innerHTML = document.getElementById("w"+String(i)+daysShort[j]).innerHTML = "<div id=\""+String(pDate.getFullYear())+String(pDate.getMonth())+String(d)+"\"class=\"day\">"+String(d)+"</div>";
 					d++;
-					if (d>daysInMonth[t.getMonth()]){break;}
+					if (d>daysInMonth[pDate.getMonth()]){break;}
 				}
-			if (d>daysInMonth[t.getMonth()]){break;}			
+			if (d>daysInMonth[pDate.getMonth()]){break;}			
 			}
 		}
 		for (i = 1;i<=6;i++){
@@ -130,10 +132,18 @@
 				document.getElementById('w'+String(i)).style.visibility='hidden';
 			}
 		}
+		if (today.getMonth() == pDate.getMonth() && today.getFullYear() == pDate.getFullYear()){
+			document.getElementById(String(pDate.getFullYear())+String(pDate.getMonth())+String(pDate.getDate())).parentNode.style="background-color:rgba(255,255,255,.3)";
+		}
 	}
 	createCalendar(functionDate);
 
 function clearCalendar(){
+	pDate = new Date()
+	try{
+		document.getElementById(String(pDate.getFullYear())+String(pDate.getMonth())+String(pDate.getDate())).parentNode.style="background-color:none";
+	}
+	catch(err){}
 	var daysShort = ["sun","mon","tue","wed","thu","fri","sat"];
 	document.getElementById('month').innerHTML="";
 	for (i = 1; i<=6; i++){
