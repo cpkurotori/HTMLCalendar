@@ -13,9 +13,24 @@
 	<body>
 		<table class="calendar" id="calendar" style="margin:auto; width: 90%; min-width:540px;">
 			<tr>
-				<td class="button"><a class="hidden" href="javascript:void(0)" onclick="clearCalendar();functionDate.setMonth(functionDate.getMonth()-1);createCalendar(functionDate);"><div style="height:100%;"><</div></a></td>
-				<td class="month" id="month" colspan="5"></td>
-				<td class="button"><a class="hidden" href="javascript:void(0)" onclick="clearCalendar();functionDate.setMonth(functionDate.getMonth()+1);createCalendar(functionDate);"><div style="height:100%;">></div></a></td>
+				<td colspan="7" class="monthCell">
+					<div class="button left">
+						<a class="hidden" href="javascript:void(0)" onclick="functionDate.setMonth(functionDate.getMonth()-1);createCalendar(functionDate);">
+							<div style="height:100%; width:75px;float:left">
+								<
+							</div>
+						</a>
+					</div>
+					<input class="title" type="month" id="calendar-title" name="calendar-title" onchange="functionDate=document.getElementById('calendar-title').valueAsDate;createCalendar(functionDate);">
+					<!-- <div class="month" id="month"></div> -->
+					<div class="button right">
+						<a class="hidden" href="javascript:void(0)" onclick="functionDate.setMonth(functionDate.getMonth()+1);createCalendar(functionDate);">
+							<div style="height:100%; width:75px; float:right">
+								>
+							</div>
+						</a>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>Sunday</th>
@@ -88,22 +103,37 @@
 	</body>
 
 	<script>
+	function clearCalendar(){
+		pDate = new Date()
+		try{
+			document.getElementById(String(pDate.getFullYear())+String(pDate.getMonth())+String(pDate.getDate())).parentNode.style="background-color:none";
+		}
+		catch(err){}
+		var daysShort = ["sun","mon","tue","wed","thu","fri","sat"];
+		document.getElementById('calendar-title').value="";
+		for (i = 1; i<=6; i++){
+			for (j=0;j<=6;j++){
+				document.getElementById('w'+String(i)+daysShort[j]).innerHTML="";
+			}
+		}
+	}
 	functionDate = new Date();
 	function createCalendar(pDate){
+		clearCalendar()
 		var today = new Date();
 		for (i=1;i<=6;i++){
 			document.getElementById('w'+String(i)).style.visibility='visible';
 		}
-		var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		var months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
 		var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 		var daysShort = ["sun","mon","tue","wed","thu","fri","sat"];
 		var daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 		var f = new Date(pDate.getFullYear(),pDate.getMonth(),1);
-		if (pDate.getYear()%4==0 && (pDate.getYear()%100!=0 || pDate.getYear()%400==0)){
+		if (pDate.getFullYear()%4==0 && (pDate.getFullYear()%100!=0 || pDate.getFullYear()%400==0)){
 			daysInMonth[1]=29;
 		}
 		var d = 1;
-		document.getElementById("month").innerHTML = months[pDate.getMonth()]+" "+String(pDate.getFullYear())
+		document.getElementById("calendar-title").value = String(pDate.getFullYear())+"-"+months[pDate.getMonth()];
 		for (i = 1; i <=6; i++){
 			if (i==1){
 				for (j=f.getDay();j<=6;j++){
@@ -133,23 +163,10 @@
 			}
 		}
 		if (today.getMonth() == pDate.getMonth() && today.getFullYear() == pDate.getFullYear()){
-			document.getElementById(String(pDate.getFullYear())+String(pDate.getMonth())+String(pDate.getDate())).parentNode.style="background-color:rgba(255,255,255,.3)";
+			document.getElementById(String(today.getFullYear())+String(today.getMonth())+String(today.getDate())).parentNode.style="background-color:rgba(255,255,255,.3)";
 		}
 	}
 	createCalendar(functionDate);
 
-function clearCalendar(){
-	pDate = new Date()
-	try{
-		document.getElementById(String(pDate.getFullYear())+String(pDate.getMonth())+String(pDate.getDate())).parentNode.style="background-color:none";
-	}
-	catch(err){}
-	var daysShort = ["sun","mon","tue","wed","thu","fri","sat"];
-	document.getElementById('month').innerHTML="";
-	for (i = 1; i<=6; i++){
-		for (j=0;j<=6;j++){
-			document.getElementById('w'+String(i)+daysShort[j]).innerHTML="";
-		}
-	}
-}
+
 	</script>

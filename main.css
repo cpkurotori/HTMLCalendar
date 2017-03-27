@@ -4,13 +4,29 @@ body {
 	background-color: rgba(0,0,0,.8);
 }
 
-table, th, td {
+table,body,input,th,td,li,ul,header,footer{
 	font-family: Quicksand;
 	font-size: 14px;
 	letter-spacing: 3px;
+}
+
+table, th, td {
+
 	border: 3px solid white;
 	border-collapse: collapse;
 	color: white;
+}
+
+input.title{
+	display:inline;
+	margin: 0 auto;
+	font-weight: bold;
+	letter-spacing: 5px;
+	font-size: 28px;
+	background-color: transparent;
+	color:white;
+	border:none;
+	text-align: right;
 }
 
 a.event {
@@ -20,6 +36,7 @@ a.event {
 	color:white;
 }
 
+
 table td {
 	vertical-align: text-top;
 	padding: 3px 3px 3px 3px;
@@ -27,22 +44,39 @@ table td {
 	min-width:120px;
 }
 
-table td.month{
-	font-weight: bold;
+table td.monthCell{
 	text-align: center;
-	letter-spacing: 5px;
-	font-size: 28px;
-	height:60px;
-	padding: none;
 	vertical-align: middle;
+	height: 70px;
 }
 
-table td.button{
+div.month{
+	display: inline;
+	margin: 0 auto;
+	font-weight: bold;
+	letter-spacing: 5px;
+	font-size: 28px;
+}
+
+div.button{
+	width:50px;
+	display: inline;
 	border : none;
 	text-align: center;
 	vertical-align: middle;
 	font-weight: bold;
 	font-size:36px;
+	padding-bottom: 10px;
+}
+
+div.button.left{
+	float: left;
+	padding-left: 20px;
+}
+
+div.button.right{
+	float: right;
+	padding-right: 20px;
 }
 
 table tr.week {
