@@ -21,7 +21,8 @@
 							</div>
 						</a>
 					</div>
-					<input class="title" type="month" id="calendar-title" name="calendar-title" onchange="functionDate=document.getElementById('calendar-title').valueAsDate;createCalendar(functionDate);">
+					<input class="title" type="month" id="calendar-title" name="calendar-title" >
+					<button class="title" type="button" onclick="var inputDate=document.getElementById('calendar-title').value; var inputDateSplit = inputDate.split('-');functionDate = new Date(inputDateSplit[0],parseInt(inputDateSplit[1])-1);createCalendar(functionDate);">GO</button>
 					<!-- <div class="month" id="month"></div> -->
 					<div class="button right">
 						<a class="hidden" href="javascript:void(0)" onclick="functionDate.setMonth(functionDate.getMonth()+1);createCalendar(functionDate);">
@@ -110,7 +111,6 @@
 		}
 		catch(err){}
 		var daysShort = ["sun","mon","tue","wed","thu","fri","sat"];
-		document.getElementById('calendar-title').value="";
 		for (i = 1; i<=6; i++){
 			for (j=0;j<=6;j++){
 				document.getElementById('w'+String(i)+daysShort[j]).innerHTML="";
